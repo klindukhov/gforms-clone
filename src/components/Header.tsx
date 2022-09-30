@@ -8,7 +8,7 @@ export default function Header() {
 }
 
 const HeaderPanel = styled.div`
-  background-color: white;
+  background-color: #4f4f4f;
   height: 6vh;
   width: 100vw;
   display: grid;
@@ -16,7 +16,7 @@ const HeaderPanel = styled.div`
 `;
 
 const HeaderText = styled.div`
-  color: black;
+  color: white;
   text-align: center;
   font-size: 3vh;
 `;
