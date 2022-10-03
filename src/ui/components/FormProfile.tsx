@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Panel } from "../common";
 
 export default function FormProfile() {
   return (
@@ -8,16 +9,11 @@ export default function FormProfile() {
   );
 }
 
-const FormProfileDiv = styled.div`
+const FormProfileDiv = styled(Panel)`
   height: 20vh;
   width: 15vw;
-  background-color: #4f4f4f;
-  border-radius: 1vh;
   display: grid;
   align-items: center;
-  &: hover {
-    border: 1px solid white;
-  }
 `;
 
 const CreateSymbol = styled.div`

@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { COLOR_PANEL } from "../common";
+
 export default function Header() {
   return (
     <HeaderPanel>
@@ -8,7 +10,7 @@ export default function Header() {
 }
 
 const HeaderPanel = styled.div`
-  background-color: #4f4f4f;
+  background-color: ${COLOR_PANEL};
   height: 6vh;
   width: 100vw;
   display: grid;
