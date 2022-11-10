@@ -1,15 +1,15 @@
 import styled from "styled-components";
 import { Panel } from "../common";
 
-export default function FormProfile() {
+export default function FormCard() {
   return (
-    <FormProfileDiv>
+    <FormCardPanel>
       <CreateSymbol>+</CreateSymbol>
-    </FormProfileDiv>
+    </FormCardPanel>
   );
 }
 
-const FormProfileDiv = styled(Panel)`
+const FormCardPanel = styled(Panel)`
   height: 20vh;
   width: 15vw;
   display: grid;

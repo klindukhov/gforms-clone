@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { COLOR_PANEL } from "../common";
+import { COLOR_BACKGROUND, COLOR_PANEL } from "../common";
 
 export default function Header() {
   return (
@@ -15,6 +15,9 @@ const HeaderPanel = styled.div`
   width: 100vw;
   display: grid;
   align-items: center;
+  border-width: 0px 0px 1px 0px;
+  border-style: solid;
+  border-color: ${COLOR_BACKGROUND};
 `;
 
 const HeaderText = styled.div`
