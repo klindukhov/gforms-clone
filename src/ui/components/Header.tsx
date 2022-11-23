@@ -11,7 +11,7 @@ export default function Header() {
 
 const HeaderPanel = styled.div`
   background-color: ${COLOR_PANEL};
-  height: 6vh;
+  height: 3rem;
   width: 100vw;
   display: grid;
   align-items: center;
@@ -23,5 +23,5 @@ const HeaderPanel = styled.div`
 const HeaderText = styled.div`
   color: white;
   text-align: center;
-  font-size: 3vh;
+  font-size: 1.5rem;
 `;

@@ -1,30 +1,56 @@
 import styled from "styled-components";
-import QuestionCard, { QuestionTypes } from "../components/QuestionCard";
-import { Page } from "../common";
+import QuestionCard, { QuestionType } from "../components/QuestionCard";
+import { Page, QPanel, TextField } from "../common";
 import { useEffect, useState } from "react";
-import { getForms, setForms } from "../../api";
+import { getForm, Question, setForm } from "../../api";
 
 export default function FormPage() {
-  let [questions, setQuestions] = useState<
-    { title: string; description: string }[]
-  >([]);
+  let [formTitle, setFormTitle] = useState("New Form");
+  let [formDescription, setFormDescription] = useState("New Description");
+
+  let [questions, setQuestions] = useState<Question[]>([]);
 
   useEffect(() => {
-    getForms().then((forms) => setQuestions(forms));
+    getForm().then((form) => {
+      setFormTitle(form.formTitle);
+      setFormDescription(form.formDescription);
+      setQuestions(
+        form.questions.map((q: { question: string; questionType: string }) => {
+          return {
+            question: q.question,
+            questionType:
+              Object.keys(QuestionType)[
+                Object.keys(QuestionType).indexOf(
+                  q.questionType as QuestionType
+                )
+              ],
+          };
+        })
+      );
+    });
   }, []);
 
   useEffect(() => {
     if (questions.length > 0) {
-      setForms(questions);
+      setForm({
+        formTitle: formTitle,
+        formDescription: formDescription,
+        questions: questions,
+      });
+      console.log({
+        formTitle: formTitle,
+        formDescription: formDescription,
+        questions: questions,
+      });
     }
-  }, [questions]);
+  }, [questions, formTitle, formDescription]);
 
   const addQuestion = () => {
     setQuestions([
       ...questions,
       {
-        title: "",
-        description: "",
+        question: "",
+        questionType: QuestionType.SHORT_ANSWER,
       },
     ]);
   };
@@ -37,24 +63,38 @@ export default function FormPage() {
 
   return (
     <FPage>
-      {questions.map((q, i) => (
-        <QuestionCard
-          questionType={QuestionTypes.SHORT_ANSWER}
-          title={q.title}
-          description={q.description}
-          setTitle={(newTitle: string) => {
-            let qs = [...questions];
-            qs[i].title = newTitle;
-            setQuestions(qs);
-          }}
-          setDescription={(newDesc: string) => {
-            let qs = [...questions];
-            qs[i].description = newDesc;
-            setQuestions(qs);
-          }}
-          deleteQuestion={() => deleteQuestion(i)}
+      <QPanel style={{ width: "54rem" }}>
+        <TextField
+          value={formTitle}
+          onChange={(e) => setFormTitle(e.target.value)}
+          placeholder='Title'
         />
-      ))}
+
+        <TextField
+          value={formDescription}
+          onChange={(e) => setFormDescription(e.target.value)}
+          placeholder='Description'
+        />
+      </QPanel>
+      {questions &&
+        questions.map((q, i) => (
+          <QuestionCard
+            key={i}
+            questionType={q?.questionType}
+            question={q?.question}
+            setQuestion={(q: string) => {
+              let qs = [...questions];
+              qs[i].question = q;
+              setQuestions(qs);
+            }}
+            setQuestionType={(qt: QuestionType) => {
+              let qs = [...questions];
+              qs[i].questionType = qt;
+              setQuestions(qs);
+            }}
+            deleteQuestion={() => deleteQuestion(i)}
+          />
+        ))}
 
       <CreateSymbol onClick={addQuestion}>+</CreateSymbol>
     </FPage>
@@ -63,16 +103,16 @@ export default function FormPage() {
 
 const FPage = styled(Page)`
   display: grid;
-  row-gap: 2vh;
+  row-gap: 1rem;
   justify-items: center;
   align-content: start;
 `;
 
 const CreateSymbol = styled.div`
   color: white;
-  height: 15vh;
+  height: 8rem;
   text-align: center;
-  font-size: 10vh;
+  font-size: 5rem;
   cursor: pointer;
-  margin-top: 2vh;
+  margin-top: 1rem;
 `;
