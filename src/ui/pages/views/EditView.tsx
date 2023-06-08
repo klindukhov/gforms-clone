@@ -4,11 +4,17 @@ import { getForm, Question, setForm } from "../../../api";
 import { QPanel, TextField } from "../../common";
 import QuestionCard, { QuestionType } from "../../components/QuestionCard";
 
-export default function EditView() {
+interface EditViewProps{
+  setHeaderTitle: Function;
+}
+
+export default function EditView({setHeaderTitle} : EditViewProps) {
   let [formTitle, setFormTitle] = useState("New Form");
   let [formDescription, setFormDescription] = useState("New Description");
 
   let [questions, setQuestions] = useState<Question[]>([]);
+
+  useEffect(() => {setHeaderTitle(formTitle)}, [formTitle])
 
   useEffect(() => {
     getForm().then((form) => {

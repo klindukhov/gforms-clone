@@ -1,22 +1,28 @@
 import styled from "styled-components";
 import { Page } from "../common";
-import React, { useContext, useEffect } from "react";
-import { TabContext } from "../../App";
+import React, { useContext, useEffect, useState } from "react";
 import EditView from "./views/EditView";
 import PreviewView from "./views/PreviewView";
 import AnswersView from "./views/AnswersView";
 import FormPageHeader from "../components/FormPageHeader";
 
 export default function FormPage() {
-  const tab = useContext(TabContext);
+  const [tab, setTab] = useState("edit");
+  const [headerTitle, setHeaderTitle] = useState(" ");
 
   return (
     <React.Fragment>
-      <FormPageHeader />
+      <FormPageHeader
+        formTitle={headerTitle}
+        tab={tab}
+        setEdit={() => setTab("edit")}
+        setPreview={() => setTab("preview")}
+        setAnswers={() => setTab("answers")}
+      />
       <FPage>
-        {tab.value === "edit" && <EditView />}
-        {tab.value === "preview" && <PreviewView />}
-        {tab.value === "answers" && <AnswersView />}
+        {tab === "edit" && <EditView setHeaderTitle={setHeaderTitle} />}
+        {tab === "preview" && <PreviewView />}
+        {tab === "answers" && <AnswersView />}
       </FPage>
     </React.Fragment>
   );

@@ -79,5 +79,3 @@ const SearchBar = styled.input`
     border: 1px solid ${COLOR_TEXT};
   }
 `;
-
-const ImgWrapper = styled.img``;

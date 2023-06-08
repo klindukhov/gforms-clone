@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import FormCard from "../components/FormCard";
 import { Page } from "../common";
 import React from "react";
@@ -10,9 +10,7 @@ export default function MainPage() {
     <React.Fragment>
       <MainPageHeader />
       <Page>
-        <Link to='/form' style={{ textDecoration: "none" }}>
-          <FormCard />
-        </Link>
+        <FormCard />
       </Page>
     </React.Fragment>
   );

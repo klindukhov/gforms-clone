@@ -1,48 +1,41 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { COLOR_BACKGROUND, COLOR_PANEL } from "../common";
 
-import { TabContext } from "../../App";
+export interface FormPageHeaderProps {
+  formTitle: String;
+  tab: String;
+  setEdit: Function;
+  setPreview: Function;
+  setAnswers: Function;
+}
 
-export default function FormPageHeader() {
-  const tab = useContext(TabContext);
+export default function FormPageHeader({
+  formTitle,
+  tab,
+  setEdit,
+  setPreview,
+  setAnswers,
+}: FormPageHeaderProps) {
+  const getTabStyle = (tabName: string) => {
+    return {
+      borderBottom:
+        tab === tabName ? "0.2rem solid white" : "0.2rem solid transparent",
+    };
+  };
 
   return (
     <React.Fragment>
       <HeaderPanel style={{ position: "absolute" }}>
-        <HeaderText>GForms</HeaderText>
+        <HeaderText>{formTitle}</HeaderText>
         <Tabs>
-          <Tab
-            style={{
-              borderBottom:
-                tab.value === "edit"
-                  ? "0.2rem solid white"
-                  : "0.2rem solid transparent",
-            }}
-            onClick={tab.setEdit}
-          >
+          <Tab style={getTabStyle("edit")} onClick={() => setEdit()}>
             Edit
           </Tab>
-          <Tab
-            style={{
-              borderBottom:
-                tab.value === "preview"
-                  ? "0.2rem solid white"
-                  : "0.2rem solid transparent",
-            }}
-            onClick={tab.setPreview}
-          >
+          <Tab style={getTabStyle("preview")} onClick={() => setPreview()}>
             Preview
           </Tab>
-          <Tab
-            style={{
-              borderBottom:
-                tab.value === "answers"
-                  ? "0.2rem solid white"
-                  : "0.2rem solid transparent",
-            }}
-            onClick={tab.setAnswers}
-          >
+          <Tab style={getTabStyle("answers")} onClick={() => setAnswers()}>
             Answers
           </Tab>
         </Tabs>

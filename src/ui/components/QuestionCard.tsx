@@ -1,11 +1,5 @@
 import styled from "styled-components";
-import {
-  QPanel,
-  TextField,
-  DeleteButton,
-  TextArea,
-  Checkbox,
-} from "../common";
+import { QPanel, TextField, DeleteButton, TextArea, Checkbox } from "../common";
 import trashCan from "../../assets/trashCan.png";
 import { useState } from "react";
 
@@ -133,7 +127,7 @@ const QFooter = styled.div`
   height: 1.5rem;
   padding-top: 1rem;
   margin-top: 1rem;
-  alignself: end;
+  align-self: end;
 `;
 
 const QuestionDiv = styled.div`

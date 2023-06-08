@@ -5,22 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import FormPage from "./ui/pages/FormPage";
 import { COLOR_BACKGROUND } from "./ui/common";
 
-export const TabContext = createContext({
-  value: "edit",
-  setEdit: () => {},
-  setPreview: () => {},
-  setAnswers: () => {},
-});
-
 export default function App() {
-  const [headerTabs, setHeaderTabs] = useState(false);
-
-  const [tab, setTab] = useState("edit");
-
-  const setEdit = () => setTab("edit");
-  const setPreview = () => setTab("preview");
-  const setAnswers = () => setTab("answers");
-
   const router = createBrowserRouter([
     {
       path: "/",
@@ -32,24 +17,9 @@ export default function App() {
     },
   ]);
   return (
-    <TabContext.Provider
-      value={{
-        value: tab,
-        setEdit: () => {
-          setEdit();
-        },
-        setPreview: () => {
-          setPreview();
-        },
-        setAnswers: () => {
-          setAnswers();
-        },
-      }}
-    >
-      <PageContent>
-        <RouterProvider router={router} />
-      </PageContent>
-    </TabContext.Provider>
+    <PageContent>
+      <RouterProvider router={router} />
+    </PageContent>
   );
 }
 
