@@ -1,6 +1,13 @@
 import styled from "styled-components";
-import { QPanel, TextField, DeleteButton, TextArea } from "../common";
+import {
+  QPanel,
+  TextField,
+  DeleteButton,
+  TextArea,
+  Checkbox,
+} from "../common";
 import trashCan from "../../assets/trashCan.png";
+import { useState } from "react";
 
 export enum QuestionType {
   SHORT_ANSWER = "Short answer",
@@ -20,6 +27,10 @@ export interface QuestionCardProps {
 }
 
 export default function QuestionCard(props: QuestionCardProps) {
+  const [checked, setChecked] = useState(true);
+
+  const toggleChecked = () => setChecked(!checked);
+
   return (
     <QPanel>
       <QuestionDiv>
@@ -59,10 +70,8 @@ export default function QuestionCard(props: QuestionCardProps) {
           QuestionType[props.questionType as keyof typeof QuestionType] ===
             QuestionType.MULTIPLE_CHOICE && (
             <span>
-              <TextField type='checkbox' id='adnew'></TextField>
-              <label htmlFor='adnew'>
-                <TextField placeholder='Add option'></TextField>
-              </label>
+              <Checkbox checked={checked} onClick={toggleChecked} />
+              <TextField placeholder='Add option'></TextField>
             </span>
           )}
 
@@ -95,8 +104,8 @@ export default function QuestionCard(props: QuestionCardProps) {
           <img src={trashCan} alt='X' style={{ width: "1.2rem" }} />
         </DeleteButton>
         <RequiredDiv>
-          <TextField type='checkbox' id='Required'></TextField>
-          <label htmlFor='Required'>Required</label>
+          <Checkbox checked={checked} onClick={toggleChecked}></Checkbox>
+          <label onClick={toggleChecked}> Required</label>
         </RequiredDiv>
       </QFooter>
     </QPanel>

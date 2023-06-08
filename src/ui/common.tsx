@@ -8,7 +8,7 @@ export const Page = styled.div`
   box-sizing: border-box;
   padding: 1.5rem;
   background-color: ${COLOR_BACKGROUND};
-  min-height: calc(94vh - 1px);
+  min-height: calc(100vh - 1px - 4rem);
   width: 100vw;
 `;
 
@@ -78,7 +78,34 @@ export const DeleteButton = styled.div`
   cursor: pointer;
   width: 2.5rem;
   &: hover {
-    color: #bebebe;
+    opacity: 0.7;
   }
   border-right: 1px solid RGB(190, 190, 190, 0.4);
+`;
+
+export interface CheckboxProps {
+  checked: boolean;
+  onClick: Function;
+}
+
+export const Checkbox = (props: CheckboxProps) => {
+  return (
+    <ChB
+      style={{
+        backgroundColor: props.checked ? COLOR_TEXT : "transparent",
+      }}
+      onClick={() => props.onClick()}
+    ></ChB>
+  );
+};
+
+const ChB = styled.div`
+  display: inline-block;
+  width: 0.6em;
+  height: 0.6em;
+  border: 1px solid ${COLOR_TEXT};
+  border-radius: 0.1rem;
+  &: hover {
+    opacity: 0.7;
+  }
 `;
