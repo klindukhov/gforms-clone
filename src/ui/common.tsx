@@ -17,7 +17,7 @@ export const Panel = styled.div`
   border-radius: 0.3rem;
   border: 1px solid transparent;
   &: hover {
-    border: 1px solid #bebebe;
+    border: 1px solid #bebebeb1;
   }
 `;
 

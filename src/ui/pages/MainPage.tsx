@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import CreateNewFormCard from "../components/FormCard";
+import CreateNewFormCard from "../components/CreateNewFormCard";
 import { COLOR_PANEL, Page } from "../common";
 import MainPageHeader from "../components/MainPageHeader";
 import styled from "styled-components";
+import FormCard from "../components/FormCard";
 
 export default function MainPage() {
   const navigate = useNavigate();
@@ -14,7 +15,17 @@ export default function MainPage() {
         <CreateNewFormCard />
       </MainPageNewFormSection>
       <MainPageAllFormsSection>
-        <CreateNewFormCard />
+        <FormCard />
+        <FormCard />
+        <FormCard />
+        <FormCard />
+        <FormCard />
+        <FormCard />
+        <FormCard />
+        <FormCard />
+        <FormCard />
+        <FormCard />
+        <FormCard />
       </MainPageAllFormsSection>
     </CustomBackground>
   );
@@ -34,6 +45,9 @@ const MainPageAllFormsSection = styled(Page)`
   padding-right: 20vw;
   background-color: transparent;
   min-height: 0rem;
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  row-gap: 1rem;
 `;
 
 const CustomBackground = styled.div`

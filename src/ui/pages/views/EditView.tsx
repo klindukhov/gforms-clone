@@ -4,17 +4,19 @@ import { getForm, Question, setForm } from "../../../api";
 import { QPanel, TextField } from "../../common";
 import QuestionCard, { QuestionType } from "../../components/QuestionCard";
 
-interface EditViewProps{
+interface EditViewProps {
   setHeaderTitle: Function;
 }
 
-export default function EditView({setHeaderTitle} : EditViewProps) {
+export default function EditView({ setHeaderTitle }: EditViewProps) {
   let [formTitle, setFormTitle] = useState("New Form");
   let [formDescription, setFormDescription] = useState("New Description");
 
   let [questions, setQuestions] = useState<Question[]>([]);
 
-  useEffect(() => {setHeaderTitle(formTitle)}, [formTitle])
+  useEffect(() => {
+    setHeaderTitle(formTitle);
+  }, [formTitle]);
 
   useEffect(() => {
     getForm().then((form) => {
@@ -71,6 +73,7 @@ export default function EditView({setHeaderTitle} : EditViewProps) {
     <React.Fragment>
       <QPanel style={{ width: "54rem" }}>
         <TextField
+          style={{ fontSize: 18 }}
           value={formTitle}
           onChange={(e) => setFormTitle(e.target.value)}
           placeholder='Title'
