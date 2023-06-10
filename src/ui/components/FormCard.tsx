@@ -2,16 +2,16 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Panel } from "../common";
 
-export default function FormCard() {
+export default function CreateNewFormCard() {
   const navigate = useNavigate();
   return (
-    <FormCardPanel onClick={() => navigate("/form")}>
+    <CreateNewFormCardPanel onClick={() => navigate("/form")}>
       <CreateSymbol>+</CreateSymbol>
-    </FormCardPanel>
+    </CreateNewFormCardPanel>
   );
 }
 
-const FormCardPanel = styled(Panel)`
+const CreateNewFormCardPanel = styled(Panel)`
   height: 12rem;
   width: 18rem;
   display: grid;
