@@ -3,9 +3,12 @@ import styled from "styled-components";
 import { COLOR_BACKGROUND, COLOR_PANEL } from "../styles/common";
 import formsLogo from "../../assets/formsLogo.png";
 import { useNavigate } from "react-router-dom";
+import { deleteFormById } from "../../api";
+import trashCan from "../../assets/trashCan.png";
 
 export interface FormPageHeaderProps {
   formTitle: String;
+  formId: string;
   tab: String;
   setEdit: Function;
   setPreview: Function;
@@ -14,6 +17,7 @@ export interface FormPageHeaderProps {
 
 export default function FormPageHeader({
   formTitle,
+  formId,
   tab,
   setEdit,
   setPreview,
@@ -38,6 +42,17 @@ export default function FormPageHeader({
             onClick={() => navigate("/")}
           />
           {formTitle}
+          <TrashCanWrapper
+            onClick={(e) => {
+              if (window.confirm("Press OK to delete a form")) {
+                deleteFormById(formId);
+                navigate("/");
+              }
+              e.stopPropagation();
+            }}
+          >
+            <img src={trashCan} style={{ height: "1rem" }} />
+          </TrashCanWrapper>
         </HeaderText>
         <Tabs>
           <Tab style={getTabStyle("edit")} onClick={() => setEdit()}>
@@ -61,7 +76,6 @@ const HeaderPanel = styled.div`
   width: 100vw;
   height: 6rem;
   display: grid;
-  align-items: center;
   border-width: 0px 0px 1px 0px;
   border-style: solid;
   border-color: ${COLOR_BACKGROUND};
@@ -88,7 +102,7 @@ const Tab = styled.div`
 const HeaderText = styled.div`
   text-align: center;
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: auto auto auto;
   align-items: center;
   justify-items: center;
   align-self: end;
@@ -97,4 +111,21 @@ const HeaderText = styled.div`
   margin: 0px;
   height: 3rem;
   padding: 0rem 1rem 0rem 1rem;
+`;
+
+export const TrashCanWrapper = styled.div`
+  height: 2rem;
+  width: 2rem;
+  border-radius: 1rem;
+  background-color: transparent;
+  justify-self: end;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  z-index: 100;
+  margin-left: 1rem;
+  margin-top: -0.4rem;
+  &: hover {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
 `;

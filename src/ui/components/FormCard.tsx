@@ -1,37 +1,43 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { COLOR_BACKGROUND, COLOR_PANEL, Panel } from "../styles/common";
-import KebabMenuButton from "../../assets/kebabMenuButton.png";
+import trashCan from "../../assets/trashCan.png";
 import { useState } from "react";
+import { deleteFormById } from "../../api";
 
 export interface FormCardProps {
   formId: string;
   formTitle: string;
+  updateList: Function;
 }
 
-export default function FormCard({ formTitle, formId }: FormCardProps) {
-  const [isDialogueOpen, setIsDialogueOpen] = useState(false);
+export default function FormCard({
+  formTitle,
+  formId,
+  updateList,
+}: FormCardProps) {
   const navigate = useNavigate();
 
-  const HandleClick = () => {
+  const handleClick = () => {
     navigate("form" + formId);
   };
 
   return (
     <div>
-      <FormCardPanel onClick={HandleClick}>
+      <FormCardPanel onClick={handleClick}>
         <BottomCardPanel>
           <span style={{ justifySelf: "start" }}>{formTitle}</span>
           <div style={{ justifySelf: "end" }}>
             <KebabMenuWrapper
               onClick={(e) => {
-                setIsDialogueOpen(!isDialogueOpen);
+                if (window.confirm("Press OK to delete a form")) {
+                  deleteFormById(formId).then(() => updateList());
+                }
                 e.stopPropagation();
               }}
             >
-              <img src={KebabMenuButton} style={{ height: "1rem" }} />
+              <img src={trashCan} style={{ height: "1rem" }} />
             </KebabMenuWrapper>
-            {isDialogueOpen && <KebabDialogue></KebabDialogue>}
           </div>
         </BottomCardPanel>
       </FormCardPanel>
@@ -72,7 +78,7 @@ const BottomCardPanel = styled.div`
   grid-template-columns: auto auto;
 `;
 
-const KebabMenuWrapper = styled.div`
+export const KebabMenuWrapper = styled.div`
   height: 2rem;
   width: 2rem;
   border-radius: 1rem;

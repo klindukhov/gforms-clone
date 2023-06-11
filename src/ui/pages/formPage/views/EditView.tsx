@@ -4,7 +4,6 @@ import {
   doesTheFormExistById,
   getFormById,
   Question,
-  setForm,
   setFormById,
 } from "../../../../api";
 import QuestionCard, {
@@ -16,9 +15,13 @@ import { useNavigate, useParams } from "react-router-dom";
 
 interface EditViewProps {
   setHeaderTitle: Function;
+  setFormIdHeader: Function;
 }
 
-export default function EditView({ setHeaderTitle }: EditViewProps) {
+export default function EditView({
+  setHeaderTitle,
+  setFormIdHeader,
+}: EditViewProps) {
   const { formId } = useParams();
   const navigate = useNavigate();
 
@@ -29,7 +32,8 @@ export default function EditView({ setHeaderTitle }: EditViewProps) {
 
   useEffect(() => {
     setHeaderTitle(formTitle);
-  }, [formTitle]);
+    setFormIdHeader(formId);
+  }, [formTitle, formId]);
 
   useEffect(() => {
     if (!formId) return;

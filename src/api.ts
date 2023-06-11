@@ -54,6 +54,16 @@ export const getNewFormId = async () => {
   return createdForm.formId;
 };
 
+export const deleteFormById = async (formId: string) => {
+  let currentFormsList = await JSON.parse(
+    localStorage.getItem("formsList") ?? "{}"
+  );
+  currentFormsList && delete currentFormsList[formId];
+  localStorage.setItem("formsList", JSON.stringify(currentFormsList));
+  localStorage.removeItem(formId);
+  return currentFormsList;
+};
+
 export const doesTheFormExistById = async (formId: string) => {
   const formsList = await getFormsList();
   return !!formsList[formId];

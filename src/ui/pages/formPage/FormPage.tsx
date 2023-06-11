@@ -9,18 +9,20 @@ import FormPageHeader from "../../components/FormPageHeader";
 export default function FormPage() {
   const [tab, setTab] = useState("edit");
   const [headerTitle, setHeaderTitle] = useState(" ");
+  const [formIdHeader, setFormIdHeader] = useState(" ")
 
   return (
     <React.Fragment>
       <FormPageHeader
         formTitle={headerTitle}
+        formId={formIdHeader}
         tab={tab}
         setEdit={() => setTab("edit")}
         setPreview={() => setTab("preview")}
         setAnswers={() => setTab("answers")}
       />
       <FPage>
-        {tab === "edit" && <EditView setHeaderTitle={setHeaderTitle} />}
+        {tab === "edit" && <EditView setHeaderTitle={setHeaderTitle} setFormIdHeader={setFormIdHeader}/>}
         {tab === "preview" && <PreviewView />}
         {tab === "answers" && <AnswersView />}
       </FPage>

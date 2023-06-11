@@ -10,8 +10,15 @@ import { getFormsList } from "../../api";
 export default function MainPage() {
   const [formsList, setFormsList] = useState<{ [formId: string]: string }>({});
   useEffect(() => {
-    getFormsList().then((formsList) => setFormsList(formsList));
+    updateList();
   }, []);
+
+  const updateList = () => {
+    getFormsList().then((formsList) => {
+      setFormsList(formsList);
+      console.log(formsList);
+    });
+  };
 
   return (
     <CustomBackground>
@@ -26,6 +33,7 @@ export default function MainPage() {
             key={formId}
             formId={formId}
             formTitle={formsList[formId]}
+            updateList={updateList}
           />
         ))}
       </MainPageAllFormsSection>
