@@ -1,11 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Panel } from "../common";
+import { getNewFormId } from "../../api";
+import { Panel } from "../styles/common";
 
 export default function CreateNewFormCard() {
   const navigate = useNavigate();
+
+  const handleClick = () => {
+    getNewFormId().then((id) => navigate("/form" + id));
+  };
+
   return (
-    <CreateNewFormCardPanel onClick={() => navigate("/form")}>
+    <CreateNewFormCardPanel onClick={handleClick}>
       <CreateSymbol>+</CreateSymbol>
     </CreateNewFormCardPanel>
   );

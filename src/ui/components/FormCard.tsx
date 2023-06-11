@@ -1,22 +1,27 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { COLOR_PANEL, Panel } from "../common";
-import KebabMenuButton from "../../assets/KebabMenuButton.png";
+import { COLOR_BACKGROUND, COLOR_PANEL, Panel } from "../styles/common";
+import KebabMenuButton from "../../assets/kebabMenuButton.png";
 import { useState } from "react";
 
-export default function FormCard() {
+export interface FormCardProps {
+  formId: string;
+  formTitle: string;
+}
+
+export default function FormCard({ formTitle, formId }: FormCardProps) {
   const [isDialogueOpen, setIsDialogueOpen] = useState(false);
+  const navigate = useNavigate();
 
   const HandleClick = () => {
-    alert("you clicked");
+    navigate("form" + formId);
   };
 
-  const navigate = useNavigate();
   return (
     <div>
       <FormCardPanel onClick={HandleClick}>
         <BottomCardPanel>
-          <span style={{ justifySelf: "start" }}>Placeholder title</span>
+          <span style={{ justifySelf: "start" }}>{formTitle}</span>
           <div style={{ justifySelf: "end" }}>
             <KebabMenuWrapper
               onClick={(e) => {
@@ -38,7 +43,7 @@ const KebabDialogue = styled.div`
   height: 6rem;
   width: 10rem;
   background-color: ${COLOR_PANEL};
-  border: solid 1px black;
+  border: solid 1px ${COLOR_BACKGROUND};
   position: absolute;
   border-radius: 0.2rem;
 `;
@@ -49,10 +54,10 @@ const FormCardPanel = styled(Panel)`
   display: grid;
   align-items: center;
   cursor: pointer;
-  background-color: black;
+  background-color: ${COLOR_BACKGROUND};
   padding-bottom: 0px;
   padding-left: 0px;
-  border: solid 1px black;
+  border: solid 1px ${COLOR_BACKGROUND};
 `;
 
 const BottomCardPanel = styled.div`

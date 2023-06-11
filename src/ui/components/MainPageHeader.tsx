@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { COLOR_BACKGROUND, COLOR_PANEL, COLOR_TEXT } from "../common";
-import formsLogo from "../../assets/forms-logo.png";
-import searchIcon from "../../assets/Search_white.png";
+import { COLOR_BACKGROUND, COLOR_PANEL, COLOR_TEXT } from "../styles/common";
+import formsLogo from "../../assets/formsLogo.png";
+import searchIcon from "../../assets/searchWhite.png";
 import React from "react";
 
 export default function MainPageHeader() {

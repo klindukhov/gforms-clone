@@ -1,12 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import CreateNewFormCard from "../components/CreateNewFormCard";
-import { COLOR_PANEL, Page } from "../common";
+import { COLOR_PANEL, Page } from "../styles/common";
 import MainPageHeader from "../components/MainPageHeader";
 import styled from "styled-components";
 import FormCard from "../components/FormCard";
+import { useEffect, useState } from "react";
+import { getFormsList } from "../../api";
 
 export default function MainPage() {
-  const navigate = useNavigate();
+  const [formsList, setFormsList] = useState<{ [formId: string]: string }>({});
+  useEffect(() => {
+    getFormsList().then((formsList) => setFormsList(formsList));
+  }, []);
+
   return (
     <CustomBackground>
       <MainPageHeader />
@@ -15,17 +21,13 @@ export default function MainPage() {
         <CreateNewFormCard />
       </MainPageNewFormSection>
       <MainPageAllFormsSection>
-        <FormCard />
-        <FormCard />
-        <FormCard />
-        <FormCard />
-        <FormCard />
-        <FormCard />
-        <FormCard />
-        <FormCard />
-        <FormCard />
-        <FormCard />
-        <FormCard />
+        {Object.keys(formsList).map((formId) => (
+          <FormCard
+            key={formId}
+            formId={formId}
+            formTitle={formsList[formId]}
+          />
+        ))}
       </MainPageAllFormsSection>
     </CustomBackground>
   );
@@ -46,7 +48,7 @@ const MainPageAllFormsSection = styled(Page)`
   background-color: transparent;
   min-height: 0rem;
   display: grid;
-  grid-template-columns: auto auto auto auto auto;
+  grid-template-columns: 20% 20% 20% 20% 20%;
   row-gap: 1rem;
 `;
 

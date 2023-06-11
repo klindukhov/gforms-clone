@@ -2,8 +2,8 @@ import { createContext, useState } from "react";
 import styled from "styled-components";
 import MainPage from "./ui/pages/MainPage";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import FormPage from "./ui/pages/FormPage";
-import { COLOR_BACKGROUND } from "./ui/common";
+import { COLOR_BACKGROUND } from "./ui/styles/common";
+import FormPage from "./ui/pages/formPage/FormPage";
 
 export default function App() {
   const router = createBrowserRouter([
@@ -12,7 +12,7 @@ export default function App() {
       element: <MainPage />,
     },
     {
-      path: "/form",
+      path: "/form:formId",
       element: <FormPage />,
     },
   ]);

@@ -1,7 +1,14 @@
 import styled from "styled-components";
-import { QPanel, TextField, DeleteButton, TextArea, Checkbox } from "../common";
+import {
+  TextField,
+  DeleteButton,
+  TextArea,
+  Select,
+} from "../styles/inputStyles";
 import trashCan from "../../assets/trashCan.png";
 import { useState } from "react";
+import { Checkbox } from "../styles/Checkbox";
+import { COLOR_PANEL } from "../styles/common";
 
 export enum QuestionType {
   SHORT_ANSWER = "Short answer",
@@ -106,19 +113,6 @@ export default function QuestionCard(props: QuestionCardProps) {
   );
 }
 
-const Select = styled.select`
-  background-color: transparent;
-  border: 1px solid transparent;
-  transition: border 0.5s;
-  width: 10rem;
-  border-radius: 0.3rem;
-  &: hover {
-    outline: none;
-    border: 1px solid #bebebe;
-    color: #bebebe;
-  }
-`;
-
 const QFooter = styled.div`
   border-top: 1px solid RGB(190, 190, 190, 0.4);
   display: grid;
@@ -144,4 +138,14 @@ const AnswerDiv = styled.div`
 const RequiredDiv = styled.div`
   padding-left: 1rem;
   padding-right: 1rem;
+`;
+
+export const QPanel = styled.div`
+  background-color: ${COLOR_PANEL};
+  border-radius: 0.3rem;
+  border: 1px solid transparent;
+  padding: 1rem;
+  width: 54rem;
+  min-height: 8rem;
+  display: grid;
 `;
