@@ -23,7 +23,7 @@ const ChB = styled.div`
   height: 0.6em;
   border: 1px solid ${COLOR_TEXT};
   border-radius: 0.1rem;
-  &: hover {
+  &:hover {
     opacity: 0.7;
   }
 `;

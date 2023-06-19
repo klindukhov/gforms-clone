@@ -6,83 +6,129 @@ import {
   Select,
 } from "../styles/inputStyles";
 import trashCan from "../../assets/trashCan.png";
-import { useState } from "react";
 import { Checkbox } from "../styles/Checkbox";
 import { COLOR_PANEL } from "../styles/common";
-
-export enum QuestionType {
-  SHORT_ANSWER = "Short answer",
-  LONG_ANSWER = "Long answer",
-  MULTIPLE_CHOICE = "Multiple choice",
-  DROPDOWN = "Dropdown",
-  DATE = "Date",
-  TIME = "Time",
-}
+import { getQuestionType, Question, QuestionType } from "../../api";
 
 export interface QuestionCardProps {
-  question: string;
-  setQuestion: Function;
+  question: Question;
+  updateQuestion: Function;
   deleteQuestion: Function;
-  questionType: string;
-  setQuestionType: Function;
+  createNewQuestionOption: Function;
 }
 
-export default function QuestionCard(props: QuestionCardProps) {
-  const [checked, setChecked] = useState(true);
+export default function QuestionCard({
+  question,
+  updateQuestion,
+  deleteQuestion,
+  createNewQuestionOption,
+}: QuestionCardProps) {
+  const toggleIsRequired = () => {
+    let newQuestion = question;
+    newQuestion.isQuestionRequired = !newQuestion.isQuestionRequired;
+    updateQuestion(newQuestion);
+  };
 
-  const toggleChecked = () => setChecked(!checked);
+  const handleQuestionTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let newQuestion = question;
+    newQuestion.question = e.target.value;
+    updateQuestion(newQuestion);
+  };
+
+  const handleQuestionTypeChange = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    let newQuestion = question;
+    newQuestion.questionType = getQuestionType(e.target.value);
+    updateQuestion(newQuestion);
+  };
+
+  const handleQuestionOptionsChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    optionId: string
+  ) => {
+    let newQuestion = question;
+    newQuestion.questionOptions[optionId] = e.target.value;
+    updateQuestion(newQuestion);
+  };
+
+  const handleDeleteQuestionOption = (optionId: string) => {
+    let newQuestion = question;
+    delete newQuestion.questionOptions[optionId];
+    updateQuestion(newQuestion);
+  };
 
   return (
     <QPanel>
       <QuestionDiv>
         <TextField
-          value={props.question}
-          onChange={(e) => props.setQuestion(e.target.value)}
+          value={question.question}
+          onChange={handleQuestionTextChange}
           placeholder='Question'
         />
-        <Select onChange={(e) => props.setQuestionType(e.target.value)}>
-          <option value={props.questionType}>
-            {QuestionType[props.questionType as keyof typeof QuestionType]}
-          </option>
-          {Object.keys(QuestionType)
-            .filter((t) => t !== props.questionType)
+        <Select onChange={handleQuestionTypeChange}>
+          <option value={question.questionType}>{question.questionType}</option>
+          {Object.values(QuestionType)
+            .filter((t) => t !== question.questionType)
             .map((t) => (
               <option key={t} value={t}>
-                {QuestionType[t as keyof typeof QuestionType]}
+                {t}
               </option>
             ))}
         </Select>
       </QuestionDiv>
 
       <AnswerDiv>
-        {props.questionType &&
-          QuestionType[props.questionType as keyof typeof QuestionType] ===
-            QuestionType.SHORT_ANSWER && (
+        {question.questionType &&
+          question.questionType === QuestionType.SHORT_ANSWER && (
             <TextField placeholder='Short answer' disabled></TextField>
           )}
 
-        {props.questionType &&
-          QuestionType[props.questionType as keyof typeof QuestionType] ===
-            QuestionType.LONG_ANSWER && (
-            <TextArea placeholder='Long answer' disabled></TextArea>
+        {question.questionType &&
+          question.questionType === QuestionType.LONG_ANSWER && (
+            <TextArea
+              style={{ maxWidth: "53rem" }}
+              placeholder='Long answer'
+              disabled
+            ></TextArea>
           )}
 
-        {props.questionType &&
-          QuestionType[props.questionType as keyof typeof QuestionType] ===
-            QuestionType.MULTIPLE_CHOICE && (
-            <span>
-              <Checkbox checked={checked} onClick={toggleChecked} />
-              <TextField placeholder='Add option'></TextField>
-            </span>
+        {question.questionType &&
+          (question.questionType === QuestionType.MULTIPLE_CHOICE ||
+            question.questionType === QuestionType.DROPDOWN) && (
+            <div>
+              {Object.keys(question.questionOptions).map((optionId: string) => (
+                <span key={optionId} style={{ display: "grid" }}>
+                  <div>
+                    <Checkbox checked={false} onClick={() => {}} />
+                    <TextField
+                      placeholder='Option'
+                      value={question.questionOptions[optionId]}
+                      onChange={(e) => handleQuestionOptionsChange(e, optionId)}
+                    ></TextField>
+                    {Object.keys(question.questionOptions) &&
+                      Object.keys(question.questionOptions).length > 1 && (
+                        <XDeleteButton
+                          onClick={() => handleDeleteQuestionOption(optionId)}
+                        >
+                          x
+                        </XDeleteButton>
+                      )}
+                  </div>
+                </span>
+              ))}
+              <span>
+                <AddOptionButton
+                  onClick={() => createNewQuestionOption(question.questionId)}
+                >
+                  Add option
+                </AddOptionButton>
+              </span>
+            </div>
           )}
 
-        {props.questionType &&
-          QuestionType[props.questionType as keyof typeof QuestionType] ===
-            QuestionType.DROPDOWN && <select></select>}
-
-        {props.questionType &&
-          QuestionType[props.questionType as keyof typeof QuestionType] ===
-            QuestionType.DATE && (
+        {question.questionType &&
+          question.questionType === QuestionType.DATE && (
             <TextField
               type='date'
               style={{ width: "7rem" }}
@@ -90,9 +136,8 @@ export default function QuestionCard(props: QuestionCardProps) {
             ></TextField>
           )}
 
-        {props.questionType &&
-          QuestionType[props.questionType as keyof typeof QuestionType] ===
-            QuestionType.TIME && (
+        {question.questionType &&
+          question.questionType === QuestionType.TIME && (
             <TextField
               type='time'
               style={{ width: "6rem" }}
@@ -101,12 +146,15 @@ export default function QuestionCard(props: QuestionCardProps) {
           )}
       </AnswerDiv>
       <QFooter>
-        <DeleteButton onClick={() => props.deleteQuestion()}>
+        <DeleteButton onClick={() => deleteQuestion()}>
           <img src={trashCan} alt='X' style={{ width: "1.2rem" }} />
         </DeleteButton>
         <RequiredDiv>
-          <Checkbox checked={checked} onClick={toggleChecked}></Checkbox>
-          <label onClick={toggleChecked}> Required</label>
+          <Checkbox
+            checked={question.isQuestionRequired}
+            onClick={toggleIsRequired}
+          ></Checkbox>
+          <label onClick={toggleIsRequired}> Required</label>
         </RequiredDiv>
       </QFooter>
     </QPanel>
@@ -138,6 +186,7 @@ const AnswerDiv = styled.div`
 const RequiredDiv = styled.div`
   padding-left: 1rem;
   padding-right: 1rem;
+  margin-top: 0.4rem;
 `;
 
 export const QPanel = styled.div`
@@ -148,4 +197,24 @@ export const QPanel = styled.div`
   width: 54rem;
   min-height: 8rem;
   display: grid;
+`;
+
+const AddOptionButton = styled.div`
+  cursor: pointer;
+  margin-left: 1.3rem;
+  font-size: 0.9rem;
+  max-width: fit-content;
+  border-bottom: 1px solid transparent;
+  margin-top: 0.5rem;
+  &:hover {
+    border-bottom: 1px solid white;
+  }
+`;
+
+const XDeleteButton = styled.span`
+  cursor: pointer;
+  opacity: 0.7;
+  &:hover {
+    opacity: 1;
+  }
 `;

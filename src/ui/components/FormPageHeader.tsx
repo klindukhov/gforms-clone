@@ -125,7 +125,7 @@ export const TrashCanWrapper = styled.div`
   z-index: 100;
   margin-left: 1rem;
   margin-top: -0.4rem;
-  &: hover {
+  &:hover {
     background-color: rgba(0, 0, 0, 0.3);
   }
 `;

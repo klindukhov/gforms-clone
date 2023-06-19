@@ -65,13 +65,13 @@ const SearchBar = styled.input`
   border: 0px transparent;
   justify-self: center;
   outline: none;
-  &: hover {
+  &:hover {
     outline: none;
     border: 1px solid #bebebe;
     color: #bebebe;
   }
-  &: focus {
-    &: hover {
+  &:focus {
+    &:hover {
       border: 1px solid ${COLOR_TEXT};
       color: ${COLOR_TEXT};
     }

@@ -16,7 +16,7 @@ export const Panel = styled.div`
   background-color: ${COLOR_PANEL};
   border-radius: 0.3rem;
   border: 1px solid transparent;
-  &: hover {
+  &:hover {
     border: 1px solid #bebebeb1;
   }
 `;

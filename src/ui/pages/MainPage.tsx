@@ -16,7 +16,6 @@ export default function MainPage() {
   const updateList = () => {
     getFormsList().then((formsList) => {
       setFormsList(formsList);
-      console.log(formsList);
     });
   };
 

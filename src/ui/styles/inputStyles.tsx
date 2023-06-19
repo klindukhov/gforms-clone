@@ -7,13 +7,13 @@ export const TextField = styled.input`
   border: 1px solid transparent;
   transition: border-bottom 0.5s;
   margin: 0.3rem;
-  &: hover {
+  &:hover {
     outline: none;
     border-bottom: 1px solid #bebebe;
     color: #bebebe;
   }
-  &: focus {
-    &: hover {
+  &:focus {
+    &:hover {
       border-bottom: 1px solid ${COLOR_TEXT};
       color: ${COLOR_TEXT};
     }
@@ -29,13 +29,13 @@ export const TextArea = styled.textarea`
   transition: border 0.5s;
   border-radius: 0.3rem;
   margin: 0.3rem;
-  &: hover {
+  &:hover {
     outline: none;
     border: 1px solid #bebebe;
     color: #bebebe;
   }
-  &: focus {
-    &: hover {
+  &:focus {
+    &:hover {
       border: 1px solid ${COLOR_TEXT};
       color: ${COLOR_TEXT};
     }
@@ -48,11 +48,10 @@ export const DeleteButton = styled.div`
   cursor: pointer;
   width: 2.5rem;
   border-right: 1px solid RGB(190, 190, 190, 0.4);
-  &: hover {
+  &:hover {
     opacity: 0.7;
   }
 `;
-
 
 export const Select = styled.select`
   background-color: transparent;
@@ -60,7 +59,7 @@ export const Select = styled.select`
   transition: border 0.5s;
   width: 10rem;
   border-radius: 0.3rem;
-  &: hover {
+  &:hover {
     outline: none;
     border: 1px solid #bebebe;
     color: #bebebe;

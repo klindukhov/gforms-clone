@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { COLOR_BACKGROUND, COLOR_PANEL, Panel } from "../styles/common";
 import trashCan from "../../assets/trashCan.png";
-import { useState } from "react";
 import { deleteFormById } from "../../api";
 
 export interface FormCardProps {
@@ -88,7 +87,7 @@ export const KebabMenuWrapper = styled.div`
   align-items: center;
   justify-items: center;
   z-index: 100;
-  &: hover {
+  &:hover {
     background-color: rgba(0, 0, 0, 0.3);
   }
 `;
