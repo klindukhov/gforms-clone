@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import CreateNewFormCard from "../components/CreateNewFormCard";
-import { COLOR_PANEL, Page } from "../styles/common";
-import MainPageHeader from "../components/MainPageHeader";
+import CreateNewFormCard from "@components/CreateNewFormCard";
+import { COLOR_PANEL, Page } from "@styles/common";
+import MainPageHeader from "@components/MainPageHeader";
 import styled from "styled-components";
-import FormCard from "../components/FormCard";
+import FormCard from "@components/FormCard";
 import { useEffect, useState } from "react";
-import { getFormsList } from "../../api";
+import { getFormsList } from "@root/api";
 
 export default function MainPage() {
   const [formsList, setFormsList] = useState<{ [formId: string]: string }>({});

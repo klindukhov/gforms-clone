@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { getNewFormId } from "../../api";
-import { Panel } from "../styles/common";
+import { getNewFormId } from "@root/api";
+import { Panel } from "@styles/common";
 
 export default function CreateNewFormCard() {
   const navigate = useNavigate();

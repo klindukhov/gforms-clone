@@ -4,14 +4,13 @@ import {
   getNewFormQuestionOptionNameId,
   doesTheFormExistById,
   getFormById,
-  getNewFormId,
   getNewQuestionId,
   Question,
   QuestionType,
   setForm,
-} from "../../../../api";
-import QuestionCard, { QPanel } from "../../../components/QuestionCard";
-import { TextField } from "../../../styles/inputStyles";
+} from "@root/api";
+import QuestionCard, { QPanel } from "@components/QuestionCard";
+import { TextField } from "@styles/inputStyles";
 import { useNavigate, useParams } from "react-router-dom";
 
 interface EditViewProps {
@@ -61,6 +60,7 @@ export default function EditView({
       return;
     }
     setForm({
+      formlastOpened: new Date(),
       formId: formId,
       formTitle: fTitle ?? "New Form",
       formDescription: fDescription,

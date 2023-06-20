@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { COLOR_BACKGROUND, COLOR_PANEL, Panel } from "../styles/common";
-import trashCan from "../../assets/trashCan.png";
-import { deleteFormById } from "../../api";
+import { COLOR_BACKGROUND, COLOR_PANEL, Panel } from "@styles/common";
+import trashCan from "@assets/trashCan.png";
+import { deleteFormById } from "@root/api";
 
 export interface FormCardProps {
   formId: string;

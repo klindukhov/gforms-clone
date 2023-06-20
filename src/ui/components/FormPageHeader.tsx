@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { COLOR_BACKGROUND, COLOR_PANEL } from "../styles/common";
-import formsLogo from "../../assets/formsLogo.png";
+import { COLOR_BACKGROUND, COLOR_PANEL } from "@styles/common";
+import formsLogo from "@assets/formsLogo.png";
 import { useNavigate } from "react-router-dom";
-import { deleteFormById } from "../../api";
-import trashCan from "../../assets/trashCan.png";
+import { deleteFormById } from "@root/api";
+import trashCan from "@assets/trashCan.png";
 
 export interface FormPageHeaderProps {
   formTitle: String;

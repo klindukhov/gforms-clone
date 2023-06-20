@@ -37,6 +37,7 @@ export const getQuestionType = (qTypeString: string) => {
 };
 
 export interface Form {
+  formlastOpened: Date;
   formId: string;
   formTitle: string;
   formDescription: string;
@@ -46,6 +47,7 @@ export interface Form {
 export interface FormsList {
   formId: string;
   formTitle: string;
+  formLastOpened: Date;
 }
 
 export const getFormsList = async (): Promise<{ [index: string]: any }> => {
@@ -75,6 +77,7 @@ export const getNewFormId = async () => {
   const newFormId = uuidv4();
 
   const newForm: Form = {
+    formlastOpened: new Date(),
     formId: newFormId,
     formTitle: "New Form",
     formDescription: "",

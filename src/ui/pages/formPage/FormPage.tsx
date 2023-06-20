@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { Page } from "../../styles/common";
+import { Page } from "@styles/common";
 import React, { useState } from "react";
 import EditView from "./views/EditView";
 import PreviewView from "./views/PreviewView";
 import AnswersView from "./views/AnswersView";
-import FormPageHeader from "../../components/FormPageHeader";
+import FormPageHeader from "@components/FormPageHeader";
 
 export default function FormPage() {
   const [tab, setTab] = useState("edit");

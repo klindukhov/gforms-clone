@@ -11,6 +11,13 @@
     "forceConsistentCasingInFileNames": true,
     "module": "ESNext",
     "moduleResolution": "Node",
+    "paths": {
+      "@assets/*": ["./src/assets/*"],
+      "@root/*": ["./src/*"],
+      "@styles/*": ["./src/ui/styles/*"],
+      "@components/*": ["./src/ui/components/*"],
+      "@pages/*": ["./src/ui/pages/*"]
+    },
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,

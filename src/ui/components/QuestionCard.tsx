@@ -4,11 +4,11 @@ import {
   DeleteButton,
   TextArea,
   Select,
-} from "../styles/inputStyles";
-import trashCan from "../../assets/trashCan.png";
-import { Checkbox } from "../styles/Checkbox";
-import { COLOR_PANEL } from "../styles/common";
-import { getQuestionType, Question, QuestionType } from "../../api";
+} from "@styles/inputStyles";
+import trashCan from "@assets/trashCan.png";
+import { Checkbox } from "@styles/Checkbox";
+import { COLOR_PANEL } from "@styles/common";
+import { getQuestionType, Question, QuestionType } from "@root/api";
 
 export interface QuestionCardProps {
   question: Question;
