@@ -2,22 +2,30 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { COLOR_BACKGROUND, COLOR_PANEL, Panel } from "@styles/common";
 import trashCan from "@assets/trashCan.png";
-import { deleteFormById } from "@root/api";
+import { deleteFormById, updateFormsList } from "@root/api";
 
 export interface FormCardProps {
   formId: string;
   formTitle: string;
+  formLastOpened: string;
   updateList: Function;
 }
 
 export default function FormCard({
   formTitle,
   formId,
+  formLastOpened,
   updateList,
 }: FormCardProps) {
   const navigate = useNavigate();
 
   const handleClick = () => {
+    const timestamp = new Date();
+    updateFormsList({
+      formId: formId,
+      formTitle: formTitle,
+      formLastOpened: timestamp,
+    });
     navigate("form" + formId);
   };
 
@@ -25,18 +33,44 @@ export default function FormCard({
     <div>
       <FormCardPanel onClick={handleClick}>
         <BottomCardPanel>
-          <span style={{ justifySelf: "start" }}>{formTitle}</span>
-          <div style={{ justifySelf: "end" }}>
-            <KebabMenuWrapper
-              onClick={(e) => {
-                if (window.confirm("Press OK to delete a form")) {
-                  deleteFormById(formId).then(() => updateList());
-                }
-                e.stopPropagation();
-              }}
-            >
-              <img src={trashCan} style={{ height: "1rem" }} />
-            </KebabMenuWrapper>
+          <div
+            style={{
+              width: "11rem",
+              height: "1rem",
+              justifySelf: "start",
+              fontWeight: "bold",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+              alignSelf: "start",
+            }}
+          >
+            {formTitle}
+          </div>
+          <div
+            style={{
+              height: "1rem",
+              fontSize: "0.9rem",
+              display: "grid",
+              gridTemplateColumns: "auto auto",
+              alignSelf: "end",
+            }}
+          >
+            <span style={{ alignSelf: "end", paddingBottom: "0.1rem" }}>
+              Opened: {formLastOpened.split("T")[0]}
+            </span>
+            <div style={{ justifySelf: "end" }}>
+              <KebabMenuWrapper
+                onClick={(e) => {
+                  if (window.confirm("Press OK to delete a form")) {
+                    deleteFormById(formId).then(() => updateList());
+                  }
+                  e.stopPropagation();
+                }}
+              >
+                <img src={trashCan} style={{ height: "0.8rem" }} />
+              </KebabMenuWrapper>
+            </div>
           </div>
         </BottomCardPanel>
       </FormCardPanel>
@@ -73,16 +107,16 @@ const BottomCardPanel = styled.div`
   border-radius: 0rem 0rem 0.2rem 0.2rem;
   padding: 1rem;
   display: grid;
-  align-items: center;
-  grid-template-columns: auto auto;
+  grid-template-columns: auto;
 `;
 
 export const KebabMenuWrapper = styled.div`
-  height: 2rem;
-  width: 2rem;
+  height: 1.6rem;
+  width: 1.6rem;
   border-radius: 1rem;
   background-color: transparent;
   justify-self: end;
+  align-self: center;
   display: grid;
   align-items: center;
   justify-items: center;

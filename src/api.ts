@@ -37,14 +37,13 @@ export const getQuestionType = (qTypeString: string) => {
 };
 
 export interface Form {
-  formlastOpened: Date;
   formId: string;
   formTitle: string;
   formDescription: string;
   formQuestions: Question[];
 }
 
-export interface FormsList {
+export interface FormsListEntry {
   formId: string;
   formTitle: string;
   formLastOpened: Date;
@@ -54,9 +53,9 @@ export const getFormsList = async (): Promise<{ [index: string]: any }> => {
   return await JSON.parse(localStorage.getItem("formsList") ?? "{}");
 };
 
-export const updateFormsList = async (formId: string, formTitle: string) => {
+export const updateFormsList = async ({formId, formTitle, formLastOpened} : FormsListEntry) => {
   let currentList = await getFormsList();
-  currentList[formId] = formTitle;
+  currentList[formId] = [formTitle, formLastOpened];
   localStorage.setItem("formsList", JSON.stringify(currentList));
 };
 
@@ -69,7 +68,8 @@ export const getFormById = async (formId: string) => {
 };
 
 export const setForm = (form: Form) => {
-  updateFormsList(form.formId, form.formTitle);
+  const timestamp = new Date();
+  updateFormsList({formId : form.formId, formTitle : form.formTitle, formLastOpened : timestamp});
   localStorage.setItem(form.formId, JSON.stringify(form));
 };
 
@@ -77,7 +77,6 @@ export const getNewFormId = async () => {
   const newFormId = uuidv4();
 
   const newForm: Form = {
-    formlastOpened: new Date(),
     formId: newFormId,
     formTitle: "New Form",
     formDescription: "",

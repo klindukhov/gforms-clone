@@ -8,7 +8,9 @@ import { useEffect, useState } from "react";
 import { getFormsList } from "@root/api";
 
 export default function MainPage() {
-  const [formsList, setFormsList] = useState<{ [formId: string]: string }>({});
+  const [formsList, setFormsList] = useState<{ [formId: string]: string[] }>(
+    {}
+  );
   useEffect(() => {
     updateList();
   }, []);
@@ -27,14 +29,22 @@ export default function MainPage() {
         <CreateNewFormCard />
       </MainPageNewFormSection>
       <MainPageAllFormsSection>
-        {Object.keys(formsList).map((formId) => (
-          <FormCard
-            key={formId}
-            formId={formId}
-            formTitle={formsList[formId]}
-            updateList={updateList}
-          />
-        ))}
+        {Object.keys(formsList)
+          .sort((formIdA, formIdB) => {
+            return (
+              +new Date(formsList[formIdB][1]) -
+              +new Date(formsList[formIdA][1])
+            );
+          })
+          .map((formId) => (
+            <FormCard
+              key={formId}
+              formId={formId}
+              formTitle={formsList[formId][0]}
+              formLastOpened={formsList[formId][1]}
+              updateList={updateList}
+            />
+          ))}
       </MainPageAllFormsSection>
     </CustomBackground>
   );
